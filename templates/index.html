@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm mb-5">
+        <h2 class="text-center mb-4">Tomato Leaf Disease Detection</h2>
+
+        <div class="upload-container text-center">
+            <form id="upload-file" method="post" enctype="multipart/form-data">
+                <label for="imageUpload" class="upload-label">
+                    <span role="img" aria-label="leaf">🍃</span> Choose Image
+                </label>
+                <input type="file" name="file" id="imageUpload" accept=".png, .jpg, .jpeg" style="display: none;">
+            </form>
+            <button id="camera-btn" class="upload-label mt-2">
+                <span role="img" aria-label="camera">📸</span> Use Camera
+            </button>
+
+            <div class="image-section mt-4" style="display:none;">
+                <div class="img-preview mx-auto" id="imagePreview"></div>
+                <video id="video" class="img-preview mx-auto" autoplay style="display:none;"></video>
+                <canvas id="canvas" style="display:none;"></canvas>
+                <div class="mt-3">
+                    <button type="button" class="btn btn-primary" id="capture-btn" style="display:none;">
+                        Snap! <span role="img" aria-label="camera">📷</span>
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-predict" style="display:none;">
+                        Predict! <span role="img" aria-label="tomato">🍅</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="loader mx-auto mt-3" style="display:none;"></div>
+
+            <h3 id="result" class="mt-4 text-center" style="color: #388e3c; min-height: 1.5em;">
+                <span></span>
+            </h3>
+        </div>
+    </div>
+
+    <!-- Disease Information Section -->
+    <div class="disease-info mt-5">
+        <h3 class="text-center mb-4">Common Tomato Leaf Diseases</h3>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <a href="#bacterial-spot" data-toggle="modal" data-target="#diseaseModal" data-disease="bacterial-spot" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm disease-card">
+                        <img src="https://www.lsuagcenter.com/~/media/system/e/d/5/f/ed5f2bf2949a12ff123c460961e32e9a/bacterialspotontomatoxant.jpg?bc=white&as=0&mh=400&mw=1110&sc=25&thn=0" class="card-img-top" alt="Bacterial Spot">
+                        <div class="card-body">
+                            <h5 class="card-title">Bacterial Spot</h5>
+                            <p class="card-text">Spots that go dark with a sunny halo! 🌞</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <a href="#early-blight" data-toggle="modal" data-target="#diseaseModal" data-disease="early-blight" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm disease-card">
+                        <img src="https://content.ces.ncsu.edu/media/images/spot_3.jpeg" class="card-img-top" alt="Early Blight">
+                        <div class="card-body">
+                            <h5 class="card-title">Early Blight</h5>
+                            <p class="card-text">Target spots like little bullseyes! 🎯</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <a href="#late-blight" data-toggle="modal" data-target="#diseaseModal" data-disease="late-blight" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm disease-card">
+                        <img src="https://robertsnurseries.com/x/cdn/?https://storage.googleapis.com/production-sitelio-v1-0-1/711/454711/qrgpbK40/c6a0ae3a7ee348e19bf8218ad9108405" class="card-img-top" alt="Late Blight">
+                        <div class="card-body">
+                            <h5 class="card-title">Late Blight</h5>
+                            <p class="card-text">Big gray spots in the rain! ☔</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <a href="#leaf-mold" data-toggle="modal" data-target="#diseaseModal" data-disease="leaf-mold" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm disease-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPrslOwRy-VnsRixsduZ2YayzOshBdOGklpg&s" class="card-img-top" alt="Leaf Mold">
+                        <div class="card-body">
+                            <h5 class="card-title">Leaf Mold</h5>
+                            <p class="card-text">Yellow with fuzzy mold below! 🍂</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <a href="#mosaic-virus" data-toggle="modal" data-target="#diseaseModal" data-disease="mosaic-virus" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm disease-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQoqI0OQvi3XIzjqXnABcPlFtuyAFWt6agCrw&s" class="card-img-top" alt="Mosaic Virus">
+                        <div class="card-body">
+                            <h5 class="card-title">Mosaic Virus</h5>
+                            <p class="card-text">Patchy yellow-green leaves! 🟨🟩</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4 mb-4">
+                <a href="#yellow-leaf-curl" data-toggle="modal" data-target="#diseaseModal" data-disease="yellow-leaf-curl" class="text-decoration-none">
+                    <div class="card h-100 shadow-sm disease-card">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-0TQQY5L7Va_06KsweEkamS1r9kEj9qsiVQ&s" class="card-img-top" alt="Yellow Leaf Curl Virus">
+                        <div class="card-body">
+                            <h5 class="card-title">Yellow Leaf Curl Virus</h5>
+                            <p class="card-text">Curly, yellow leaves! 🌿</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Disease Details -->
+<div class="modal fade" id="diseaseModal" tabindex="-1" role="dialog" aria-labelledby="diseaseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="diseaseModalLabel">Disease Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="disease-details"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

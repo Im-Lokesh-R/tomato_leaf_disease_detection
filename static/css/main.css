@@ -1,0 +1,188 @@
+body {
+    background: linear-gradient(135deg, #e8f5e9 0%, #fffde7 100%);
+    font-family: 'Comic Neue', sans-serif; /* Cute, rounded font */
+    min-height: 100vh;
+    color: #2e7d32; /* Soft green text */
+}
+
+.navbar {
+    background: #4caf50; /* Vibrant green */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fffde7;
+}
+
+.card {
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.upload-label {
+    border-radius: 30px;
+    padding: 0.7rem 2.5rem;
+    border: 2px dashed #ffb300; /* Warm yellow */
+    background: #fff8e1;
+    color: #ef6c00; /* Orange for energy */
+    font-weight: bold;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.upload-label:hover {
+    background: #ffecb3;
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.img-preview {
+    width: 100%;
+    max-width: 320px;
+    height: 220px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border-radius: 15px;
+    border: 3px solid #c8e6c9; /* Light green border */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary {
+    border-radius: 30px;
+    padding: 0.7rem 2.5rem;
+    background: linear-gradient(45deg, #4caf50, #81c784); /* Green gradient */
+    border: none;
+    color: white;
+    font-weight: bold;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, #388e3c, #66bb6a);
+    transform: scale(1.05);
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 6px solid #ffb300;
+    border-top: 6px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s ease-in-out infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+h2, h3 {
+    font-family: 'Bubblegum Sans', cursive; /* Playful font */
+    color: #ef6c00; /* Orange for warmth */
+}
+
+h5 {
+    font-family: 'Bubblegum Sans', cursive;
+    color: #d81b60; /* Pinkish-red for cuteness */
+}
+
+.disease-info .card {
+    padding: 0;
+    border: 2px solid #c8e6c9;
+}
+
+.disease-info .card-img-top {
+    height: 160px;
+    object-fit: cover;
+    border-top-left-radius: 18px;
+    border-top-right-radius: 18px;
+    transition: transform 0.3s;
+}
+
+.disease-info .card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.disease-info .card-body {
+    padding: 1.2rem;
+    background: #f1f8e9; /* Light green background */
+}
+
+.disease-info .card-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.disease-info .card-text {
+    color: #558b2f; /* Earthy green */
+    font-size: 0.95rem;
+}
+
+.modal-content {
+    border-radius: 20px;
+    background: #fffde7; /* Soft yellow */
+    border: 3px solid #ffb300;
+}
+
+.modal-header {
+    background: #81c784;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+}
+
+.modal-title {
+    color: white;
+}
+
+.modal-body p {
+    color: #2e7d32;
+    line-height: 1.6;
+}
+
+.modal-body a {
+    color: #d81b60;
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+.modal-body a:hover {
+    color: #f06292;
+}
+
+.btn-secondary {
+    background: #ef6c00;
+    border: none;
+    border-radius: 20px;
+    transition: transform 0.2s;
+}
+
+.btn-secondary:hover {
+    background: #e65100;
+    transform: scale(1.05);
+}
+/* Add to existing main.css */
+#video {
+    width: 100%;
+    max-width: 320px;
+    height: 220px;
+    border-radius: 15px;
+    border: 3px solid #c8e6c9;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    object-fit: cover;
+}
+
+#canvas {
+    display: none; /* Hidden but used for capturing */
+}
